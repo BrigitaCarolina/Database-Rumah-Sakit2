@@ -4,9 +4,9 @@ def create_perusahaan(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS PerusahaanAsuransi (
         id int auto_increment,
-        nama_perusahaan     varchar(255),
+        nama_perusahaan     varchar(255) NOT NULL,
         nama_kontak         varchar(255),
-        nomor_telepon       varchar(100),
+        nomor_telepon       varchar(100) NOT NULL,
         PRIMARY KEY (id)   
     );
     """

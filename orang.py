@@ -5,17 +5,17 @@ def create_orang(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS Orang (
         id              int auto_increment,
-        nama_depan      varchar(255),
-        nama_belakang   varchar(255),
-        tanggal_lahir   date,
-        jenis_kelamin   varchar(255),
-        nomor_telepon   varchar(100),
-        jalan           varchar(255),
-        desa_kelurahan  varchar(255),
-        kecamatan       varchar(255),
-        kabupaten_kota  varchar(255),
-        provinsi        varchar(255),
-        email           varchar(255),
+        nama_depan      varchar(255) NOT NULL,
+        nama_belakang   varchar(255) NOT NULL,
+        tanggal_lahir   date NOT NULL,
+        jenis_kelamin   varchar(255) NOT NULL,
+        nomor_telepon   varchar(100) NOT NULL,
+        jalan           varchar(255) NOT NULL,
+        desa_kelurahan  varchar(255) NOT NULL,
+        kecamatan       varchar(255) NOT NULL,
+        kabupaten_kota  varchar(255) NOT NULL,
+        provinsi        varchar(255) NOT NULL,
+        email           varchar(255) NOT NULL,
         PRIMARY KEY (id)     
     );
     """

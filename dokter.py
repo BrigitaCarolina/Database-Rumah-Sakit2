@@ -4,7 +4,7 @@ def create_dokter(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS Dokter (
         id   int,
-        spesialisasi    varchar(255),
+        spesialisasi    varchar(255) NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (id) REFERENCES TenagaMedis(id)
     );

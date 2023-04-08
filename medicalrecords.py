@@ -5,13 +5,14 @@ def create_medical_records(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS MedicalRecord (
         id                  int auto_increment,
-        id_pasien           int,
-        id_kerja_sama       int,
-        tanggal_masuk       date,
-        tanggal_keluar      date,
-        diagnosis           varchar(255),
-        biaya               int,
-        PRIMARY KEY (id)
+        id_pasien           int NOT NULL,
+        id_kerja_sama       int NOT NULL,
+        tanggal_masuk       date NOT NULL,
+        tanggal_keluar      date NOT NULL,
+        diagnosis           varchar(255) NOT NULL,
+        biaya               int NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (id_pasien) REFERENCES Orang(id)
     );
     """
     with connection.cursor() as cursor:

@@ -3,11 +3,11 @@ def create_resep(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS Resep (
         id int auto_increment,
-        id_medical_records int,
-        nama_pengobatan varchar(255),
-        dosis varchar(255),
-        tanggal_mulai date,
-        tanggal_selesai date,
+        id_medical_records int NOT NULL,
+        nama_pengobatan varchar(255) NOT NULL,
+        dosis varchar(255) NOT NULL,
+        tanggal_mulai date NOT NULL,
+        tanggal_selesai date NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (id_medical_records) REFERENCES MedicalRecord(id)
     );

@@ -3,10 +3,10 @@ def create_klaim_asuransi(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS KlaimAsuransi (
         id                  int auto_increment,
-        tanggalKlaim        date,
-        status              varchar(255),
-        id_perusahaan       int,
-        id_medical_records  int,
+        tanggalKlaim        date NOT NULL,
+        status              varchar(255) NOT NULL,
+        id_perusahaan       int NOT NULL,
+        id_medical_records  int NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (id_perusahaan) REFERENCES PerusahaanAsuransi(id),
         FOREIGN KEY (id_medical_records) REFERENCES MedicalRecord(id)

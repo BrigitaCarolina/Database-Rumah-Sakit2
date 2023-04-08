@@ -4,10 +4,10 @@ def create_teslab(connection):
     create_table_query = """
     CREATE TABLE TesLab (
         id int auto_increment, 
-        id_medical_records int,
-        tanggal_tes date,
-        hasil varchar(255),
-        tempat varchar(100),
+        id_medical_records int NOT NULL,
+        tanggal_tes date NOT NULL,
+        hasil varchar(255) NOT NULL,
+        tempat varchar(100) NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY(id_medical_records) REFERENCES MedicalRecord(id)
     );

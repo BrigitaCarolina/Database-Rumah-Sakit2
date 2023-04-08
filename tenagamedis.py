@@ -4,8 +4,8 @@ def create_tenagamedis(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS TenagaMedis (
         id              int PRIMARY KEY, 
-        nomor_lisensi   varchar(25),
-        id_departemen   int,
+        nomor_lisensi   varchar(25) NOT NULL,
+        id_departemen   int NOT NULL,
         FOREIGN KEY (id) REFERENCES Orang(id),
         FOREIGN KEY (id_departemen) REFERENCES Departemen(id)      
     );

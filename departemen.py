@@ -4,8 +4,8 @@ def create_departemen(connection):
     create_table_query = """
     CREATE TABLE Departemen (
         id                  int auto_increment, 
-        nama_departemen     varchar(255),
-        kepala_departemen   varchar(255),
+        nama_departemen     varchar(255) NOT NULL,
+        kepala_departemen   varchar(255) NOT NULL,
         PRIMARY KEY (id) 
     );
     """
