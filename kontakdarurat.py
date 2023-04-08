@@ -22,8 +22,13 @@ def insert_kontak_darurat(connection, fake):
     # Insert KontakDarurat
     for i in range(len(pasien_id)):
         # Take random id from Pasien
-        random_id = random.choice(pasien_id)[0]
-        pasien_id.remove(random_id)
+        success = False
+        while (not success):
+            random_id = random.choice(pasien_id)['id']
+            if random_id in [d['id'] for d in pasien_id]:
+                pasien_id.remove({'id': random_id})
+                success = True
+
         nomor = fake.phone_number()
         nama = fake.name()
         insert_query = f"""
@@ -32,4 +37,3 @@ def insert_kontak_darurat(connection, fake):
         """
         with connection.cursor() as cursor:
             cursor.execute(insert_query)
-            connection.commit()

@@ -1,7 +1,6 @@
 import random
 
 def create_perusahaan(connection):
-    connection.cursor().execute("DROP TABLE PerusahaanAsuransi")
     create_table_query = """
     CREATE TABLE IF NOT EXISTS PerusahaanAsuransi (
         id int auto_increment,

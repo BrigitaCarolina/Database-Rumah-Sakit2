@@ -1,3 +1,4 @@
+import random
 def create_klaim_asuransi(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS KlaimAsuransi (
@@ -28,9 +29,13 @@ def insert_klaim_asuransi(x, connection, fake):
         tanggalKlaim = fake.date_between(start_date='-1y', end_date='today')
         status = fake.random_choices(elements=('Diterima', 'Ditolak'))[0]
         id_perusahaan = fake.random_choices(elements=id_perusahaan_list)[0]['id']
-        id_medical_records = fake.random_choices(elements=id_medical_records_list)[0]['id']
-        id_medical_records_list.remove(id_medical_records)
+        success = False
+        while (not success):
+            random_id = random.choice(id_medical_records_list)['id']
+            if random_id in [d['id'] for d in id_medical_records_list]:
+                id_medical_records_list.remove({'id': random_id})
+                success = True
         query = "INSERT INTO KlaimAsuransi VALUES (%s, %s, %s, %s, %s)"
         with connection.cursor() as cursor:
-            cursor.execute(query, (id, tanggalKlaim, status, id_perusahaan, id_medical_records))
+            cursor.execute(query, (id, tanggalKlaim, status, id_perusahaan, random_id))
         connection.commit()

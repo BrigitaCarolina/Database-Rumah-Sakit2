@@ -1,3 +1,4 @@
+import random
 def create_resep(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS Resep (
@@ -23,7 +24,7 @@ def input_data_resep(x, connection, fake):
     # insert data
     for i in range(x):
         id = i + 1
-        id_medical_records = fake.random_choices(elements=id_medical_records_list)['id']
+        id_medical_records = id_medical_records_list[random.randint(0, len(id_medical_records_list)-1)]['id']
         nama_pengobatan = fake.word()
         dosis = fake.word()
         tanggal_mulai = fake.date()

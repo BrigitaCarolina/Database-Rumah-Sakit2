@@ -9,11 +9,12 @@ def create_pasien(connection):
     with connection.cursor() as cursor:
         cursor.execute(create_table_query)
 
-def input_data_pasien(x, connection):
-    connection.cursor().execute("SELECT id FROM Orang")
-    id = connection.cursor().fetchall()
-    connection.cursor().execute("SELECT id FROM TenagaMedis")
-    id_tenaga_medis = connection.cursor().fetchall()
+def input_data_pasien(x, connection, fake):
+    cursor = connection.cursor()
+    cursor.execute("SELECT id FROM Orang")
+    id = cursor.fetchall()
+    cursor.execute("SELECT id FROM TenagaMedis")
+    id_tenaga_medis = cursor.fetchall()
     new_list  = [x for x in id if x not in id_tenaga_medis]
     for i in range(x):
         id = new_list[i]['id'] 

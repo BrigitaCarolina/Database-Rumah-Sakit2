@@ -18,8 +18,6 @@ from teslab import *
 
 
 fake = Faker() 
-print(fake.name())
-print(fake.email())
 
 # Connect to the MySQL database
 connection = pymysql.connect(
@@ -32,16 +30,16 @@ connection = pymysql.connect(
 )
 fake = Faker()
 
-create_orang(connection)
-input_data_orang(300, connection, fake)
+# create_orang(connection)
+# input_data_orang(300, connection, fake)
 # create_departemen(connection)
 # input_departemen(connection, fake)
 # create_tenagamedis(connection)
 # input_data_tenaga_medis(200, connection, fake)
-# create_perawat(connection)
-# input_data_perawat(100, connection, fake)
 # create_dokter(connection)
 # input_data_dokter(100, connection, fake)
+# create_perawat(connection)
+# input_data_perawat(100, connection, fake)
 # create_pasien(connection)
 # input_data_pasien(100, connection, fake)
 # create_kontak_darurat(connection)
@@ -58,8 +56,8 @@ input_data_orang(300, connection, fake)
 # input_data_prosedur(100, connection, fake)
 # create_klaim_asuransi(connection)
 # insert_klaim_asuransi(100, connection, fake)
-# create_satuantugas(connection)
-# input_data_satuan_tugas(connection, fake)
+create_satuantugas(connection)
+input_data_satuan_tugas(connection, fake)
 
 
 connection.commit()
