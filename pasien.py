@@ -1,7 +1,7 @@
 def create_pasien(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS Pasien (
-        id                  int,
+        id                  int NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (id) REFERENCES Orang(id)
     );
