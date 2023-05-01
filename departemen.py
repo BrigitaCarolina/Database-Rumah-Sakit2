@@ -5,17 +5,31 @@ def create_departemen(connection):
     CREATE TABLE Departemen (
         id                  int auto_increment, 
         nama_departemen     varchar(255) NOT NULL,
-        kepala_departemen   varchar(255) NOT NULL,
         PRIMARY KEY (id) 
+        FOREIGN KEY (nama_departemen) REFERENCES KepalaDepartemen(namaDepartemen)
     );
     """
     with connection.cursor() as cursor:
         cursor.execute(create_table_query)
 
+
 def input_departemen(connection, fake):
-    nama_departemen = ["Dermatologi", "Patologi Klinik", "Orthopedi dan Traumatologi", "Medik Gigi dan Mulut", "Kebidanan dan Kandungan", "THT", "Penyakit Dalam", "Urologi", "Penyakit Saraf", "Bedah Saraf", "Bedah", "Kesehatan Anak", "Forensik dan Medikolegal", "Kesehatan Jiwa", "Anestesiologi", "Mikrobiologi Klinik", "Ilmu Gizi Klinik", "Farmakologi Klinik"]
-    for i in range(len(nama_departemen)):
-        kepala_departemen = fake.name()
-        departemen = nama_departemen[random.randint(0, len(nama_departemen)-1)]  
+    cursor = connection.cursor()
+    cursor.execute("SELECT nama_departemen FROM KepalaDepartemen")
+    namaDepartemen = cursor.fetchall()
+    for i in range(x):
+        namaDepartemen = namaDepartemen[i]['nama_departemen']
         with connection.cursor() as cursor:
-            cursor.execute(f"INSERT INTO Departemen (nama_departemen, kepala_departemen) VALUES ('{departemen}', '{kepala_departemen}')")
+            cursor.execute(f"INSERT INTO departemen (nama_departemen) VALUES ('{namaDepartemen}')")
+
+def input_data_dokter(x, connection, fake):
+    spesialisasi = ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", " Hematology", "Infectious Disease", "Nephrology", "Neurology", "Oncology", "Ophthalmology", "Orthopedics", "Pulmonology", "Rheumatology", "Urology"]
+    cursor = connection.cursor()
+    cursor.execute("SELECT id FROM TenagaMedis")
+    lisensiDokter = cursor.fetchall()
+    random.shuffle(lisensiDokter)
+    for i in range(x):
+        lisensiDokterr = lisensiDokter[i]['id'] 
+        spesialisasii = spesialisasi[random.randint(0, len(spesialisasi) - 1)]
+        with connection.cursor() as cursor:
+            cursor.execute(f"INSERT INTO dokter (id, spesialisasi) VALUES ({lisensiDokterr}, '{spesialisasii}')")

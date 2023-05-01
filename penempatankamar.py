@@ -1,14 +1,13 @@
 import random
-def create_kamar_pasien(connection):
+def create_penempatan_kamar(connection):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS KamarPasien (
         id                  int,
         lantai              int,
         nomor               int,
-        kelas               varchar(10) NOT NULL,
-        kapasitas           int NOT NULL,
-        PRIMARY KEY (id, lantai, nomor),
-        FOREIGN KEY (id) REFERENCES MedicalRecord(id)
+        PRIMARY KEY (id),
+        FOREIGN KEY (id) REFERENCES MedicalRecord(id),
+        FOREIGN KEY (lantai, nomor) REFERENCES KelasKapasitasKamar(lantai, nomor)
     );
     """
     with connection.cursor() as cursor:
@@ -18,7 +17,10 @@ def input_data_kamar(connection, fake):
     cursor = connection.cursor()
     cursor.execute("SELECT id FROM MedicalRecord")
     id = cursor.fetchall()
-    kelas = ['A', 'B', 'C']
+    cursor.execute("SELECT lantai FROM KelasKapasitasKamar")
+    lantai = cursor.fetchall()
+    cursor.execute("SELECT nomor FROM KelasKapasitasKamar")
+    nomor = cursor.fetchall()
     for i in range(len(id)):
         idkamar = id[i]['id']
         lantai = random.randint(1, 20)
