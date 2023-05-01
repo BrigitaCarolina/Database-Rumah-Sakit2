@@ -16,6 +16,8 @@ from satuantugas import *
 from tenagamedis import *
 from teslab import *
 from kamarpasien import *
+from penempatankamar import *
+from kelaskapasitaskamar import *
 
 
 fake = Faker() 
@@ -49,8 +51,12 @@ create_perusahaan(connection)
 input_data_perusahaan(10, connection, fake)
 create_medical_records(connection)
 input_data_medical_records(connection, fake)
-create_kamar_pasien(connection)
-input_data_kamar(connection, fake) 
+create_kelas_kapasitas_kamar(connection)
+input_data_kelas_kapasitas_kamar(connection, fake)
+create_penempatan_kamar(connection)
+input_data_kelas_kapasitas_kamar(connection, fake)
+# create_kamar_pasien(connection)
+# input_data_kamar(connection, fake) 
 create_resep(connection)
 input_data_resep(100, connection, fake)
 create_teslab(connection)

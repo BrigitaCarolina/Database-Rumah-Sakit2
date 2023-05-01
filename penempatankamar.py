@@ -19,14 +19,14 @@ def input_data_kamar(connection, fake):
     id = cursor.fetchall()
     cursor.execute("SELECT lantai FROM KelasKapasitasKamar")
     lantai = cursor.fetchall()
+    random.shuffle(lantai)
     cursor.execute("SELECT nomor FROM KelasKapasitasKamar")
     nomor = cursor.fetchall()
+    random.shuffle(nomor)
     for i in range(len(id)):
         idkamar = id[i]['id']
-        lantai = random.randint(1, 20)
-        nomor = (lantai * 100) + random.randint(1, 3)
-        kelaskamar = kelas[random.randint(0, 2)]
-        kapasitas = random.randint(2, 4)
+        lantaiKamar = lantai[i]['lantai']
+        nomorKamar = nomor[i]['nomor']
         with connection.cursor() as cursor:
-            cursor.execute(f"INSERT INTO KamarPasien (id, lantai, nomor, kelas, kapasitas) VALUES ({idkamar}, {lantai}, {nomor}, '{kelaskamar}', {kapasitas})")
+            cursor.execute(f"INSERT INTO KamarPasien (id, lantai, nomor) VALUES ({idkamar}, {lantaiKamar}, {nomorKamar})")
             
