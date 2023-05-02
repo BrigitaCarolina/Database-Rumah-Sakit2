@@ -11,8 +11,8 @@ def create_detail_records(connection):
         diagnosis           varchar(255) NOT NULL,
         biaya               int NOT NULL,
         PRIMARY KEY (id_pasien, id_kerja_sama),
-        FOREIGN KEY (id_pasien) REFERENCES MedicalRecord(id_pasien),
-        FOREIGN KEY (id_kerja_sama) REFERENCES MedicalRecord(id_kerja_sama),
+        FOREIGN KEY (id_pasien) REFERENCES Pasien(id),
+        FOREIGN KEY (id_kerja_sama) REFERENCES SatuanTugas(id_kerja_sama)
     );
     """
     with connection.cursor() as cursor:
@@ -20,7 +20,7 @@ def create_detail_records(connection):
 
 def input_data_detail_records(connection, fake):
     cursor = connection.cursor()
-    cursor.execute("SELECT id, id_pasien, id_kerja_sama from MedicalRecord")
+    cursor.execute("SELECT id, id_pasien, id_kerja_sama from MedicalRecord w")
     PK = cursor.fetchall()
     x = len(PK)
 
@@ -36,6 +36,6 @@ def input_data_detail_records(connection, fake):
         length_of_stay = random.randint(min_length_of_stay, max_length_of_stay)
         checkout_date = checkin_date + timedelta(days=length_of_stay)
         diagnosis = fake.sentence()
-        biaya = random.randint(a, b)(10, 1000)
+        biaya = random.randint(10, 1000)
         with connection.cursor() as cursor:
             cursor.execute(f"INSERT INTO DetailRecords (id_pasien, id_kerja_sama, tanggal_masuk, tanggal_keluar, diagnosis, biaya) VALUES ('{id_pasien}', '{id_kerja_sama}', '{checkin_date}', '{checkout_date}', '{diagnosis}', {biaya})")

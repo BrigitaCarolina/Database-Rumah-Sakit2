@@ -1,3 +1,4 @@
+
 import random
 
 def create_orang(connection):
@@ -12,11 +13,9 @@ def create_orang(connection):
         nomor_telepon   varchar(100) NOT NULL,
         jalan           varchar(255) NOT NULL,
         desa_kelurahan  varchar(255) NOT NULL,
-        kecamatan       varchar(255) NOT NULL,
-        kabupaten_kota  varchar(255) NOT NULL,
-        provinsi        varchar(255) NOT NULL,
         email           varchar(255) NOT NULL,
-        PRIMARY KEY (id)     
+        PRIMARY KEY (id),
+        FOREIGN KEY (desa_kelurahan) REFERENCES DesaKecamatan(desa_kelurahan)
     );
     """
     with connection.cursor() as cursor:
@@ -24,6 +23,11 @@ def create_orang(connection):
     print("Something")
 
 def input_data_orang(x, connection, fake):
+    #take desa_keluarahan from DesaKecamatan
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT desa_kelurahan FROM DesaKecamatan")
+        desa_kelurahan_list = cursor.fetchall()
+
     gender = ["laki-laki", "perempuan"]
     for i in range(x):
         namaDepan = fake.name()
@@ -31,12 +35,9 @@ def input_data_orang(x, connection, fake):
         tanggalLahir  = fake.date()
         jenisKelamin = gender[random.randint(0, 1)]  
         nomor_telepon = "08" + "".join([str(random.randint(0,9)) for i in range(10)])
+        desa_kelurahan = fake.random_choices(elements=desa_kelurahan_list)[0]['desa_kelurahan']
         email = fake.email()
         jalan = fake.street_address()
-        desa = fake.city()
-        kecamatan = fake.city()
-        kabupaten = fake.city() 
-        provinsi = fake.state()
-        print(f"INSERT INTO Orang (nama_depan, nama_belakang, tanggal_lahir, jenis_kelamin, nomor_telepon, jalan, desa/kelurahan, kecamatan, kabupaten/kota, provinsi, email) VALUES ('{namaDepan}', '{namaBelakang}', '{tanggalLahir}', '{jenisKelamin}','{nomor_telepon}', '{jalan}', '{desa}', '{kecamatan}', '{kabupaten}', '{provinsi}', '{email}')")
+        print(f"INSERT INTO Orang (nama_depan, nama_belakang, tanggal_lahir, jenis_kelamin, nomor_telepon, jalan, desa/kelurahan, email) VALUES ('{namaDepan}', '{namaBelakang}', '{tanggalLahir}', '{jenisKelamin}','{nomor_telepon}', '{jalan}', '{desa_kelurahan}', '{email}')")
         with connection.cursor() as cursor:
-            cursor.execute(f"INSERT INTO Orang (nama_depan, nama_belakang, tanggal_lahir, jenis_kelamin, nomor_telepon, jalan, desa_kelurahan, kecamatan, kabupaten_kota, provinsi, email) VALUES ('{namaDepan}', '{namaBelakang}', '{tanggalLahir}', '{jenisKelamin}','{nomor_telepon}', '{jalan}', '{desa}', '{kecamatan}', '{kabupaten}', '{provinsi}', '{email}')")
+            cursor.execute(f"INSERT INTO Orang (nama_depan, nama_belakang, tanggal_lahir, jenis_kelamin, nomor_telepon, jalan, desa_kelurahan, email) VALUES ('{namaDepan}', '{namaBelakang}', '{tanggalLahir}', '{jenisKelamin}','{nomor_telepon}', '{jalan}', '{desa_kelurahan}', '{email}')")

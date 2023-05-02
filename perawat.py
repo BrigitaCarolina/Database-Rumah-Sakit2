@@ -5,7 +5,7 @@ def create_perawat(connection):
     CREATE TABLE IF NOT EXISTS Perawat (
         id   int,
         PRIMARY KEY (id),
-        FOREIGN KEY (id) REFERENCES TenagaMedis(id)
+        FOREIGN KEY (id) REFERENCES LisensiTenagaMedis(id)
     );
     """
     with connection.cursor() as cursor:
@@ -16,7 +16,7 @@ def input_data_perawat(x, connection, fake):
     cursor = connection.cursor()
     cursor.execute("SELECT id FROM dokter")
     lisensiDokter = cursor.fetchall()
-    cursor.execute("SELECT id FROM TenagaMedis")
+    cursor.execute("SELECT id FROM LisensiTenagaMedis")
     lisensiTenagaMedis = cursor.fetchall()
     new_list = [x for x in lisensiTenagaMedis if x not in lisensiDokter]
     print(new_list)

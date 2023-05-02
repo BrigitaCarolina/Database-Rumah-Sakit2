@@ -13,7 +13,7 @@ def input_data_pasien(x, connection, fake):
     cursor = connection.cursor()
     cursor.execute("SELECT id FROM Orang")
     id = cursor.fetchall()
-    cursor.execute("SELECT id FROM TenagaMedis")
+    cursor.execute("SELECT id FROM LisensiTenagaMedis")
     id_tenaga_medis = cursor.fetchall()
     new_list  = [x for x in id if x not in id_tenaga_medis]
     for i in range(x):

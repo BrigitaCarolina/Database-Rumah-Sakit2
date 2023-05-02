@@ -6,7 +6,7 @@ def create_dokter(connection):
         id   int,
         spesialisasi    varchar(255) NOT NULL,
         PRIMARY KEY (id),
-        FOREIGN KEY (id) REFERENCES TenagaMedis(id)
+        FOREIGN KEY (id) REFERENCES LisensiTenagaMedis(id)
     );
     """
     with connection.cursor() as cursor:
@@ -15,7 +15,7 @@ def create_dokter(connection):
 def input_data_dokter(x, connection, fake):
     spesialisasi = ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", " Hematology", "Infectious Disease", "Nephrology", "Neurology", "Oncology", "Ophthalmology", "Orthopedics", "Pulmonology", "Rheumatology", "Urology"]
     cursor = connection.cursor()
-    cursor.execute("SELECT id FROM TenagaMedis")
+    cursor.execute("SELECT id FROM LisensiTenagaMedis")
     lisensiDokter = cursor.fetchall()
     random.shuffle(lisensiDokter)
     for i in range(x):

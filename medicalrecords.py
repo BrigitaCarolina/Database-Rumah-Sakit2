@@ -8,7 +8,7 @@ def create_medical_records(connection):
         id_kerja_sama       int NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (id_pasien) REFERENCES Pasien(id),
-        FOREIGN KEY (id_kerja_sama) REFERENCES SatuanTugas(id_kerja_sama),
+        FOREIGN KEY (id_kerja_sama) REFERENCES SatuanTugas(id_kerja_sama)
     );
     """
     with connection.cursor() as cursor:
@@ -24,11 +24,12 @@ def input_data_medical_records(connection, fake):
     y = len(SatuanTugasID)
 
     for i in range(x):
-        id_pasien = PasienID[temp]['id']
+        id_pasien = PasienID[i]['id']
         id_kerja_sama = SatuanTugasID[random.randint(0, y-1)]['id_kerja_sama']
         with connection.cursor() as cursor:
             cursor.execute(f"INSERT INTO MedicalRecord (id_pasien, id_kerja_sama) VALUES ('{id_pasien}', '{id_kerja_sama}')")
     
+    cursor = connection.cursor()
     cursor.execute("SELECT id, id_pasien, id_kerja_sama FROM MedicalRecord")
     current = cursor.fetchall()
     

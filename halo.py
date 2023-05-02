@@ -1,0 +1,2 @@
+nama_departemen = ["Dermatologi", "Patologi Klinik", "Orthopedi dan Traumatologi", "Medik Gigi dan Mulut", "Kebidanan dan Kandungan", "THT", "Penyakit Dalam", "Urologi", "Penyakit Saraf", "Bedah Saraf", "Bedah", "Kesehatan Anak", "Forensik dan Medikolegal", "Kesehatan Jiwa", "Anestesiologi", "Mikrobiologi Klinik", "Ilmu Gizi Klinik", "Farmakologi Klinik"]
+print(len(nama_departemen))
