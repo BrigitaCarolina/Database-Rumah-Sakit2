@@ -36,6 +36,15 @@ def input_data_detail_records(connection, fake):
         length_of_stay = random.randint(min_length_of_stay, max_length_of_stay)
         checkout_date = checkin_date + timedelta(days=length_of_stay)
         diagnosis = fake.sentence()
-        biaya = random.randint(10, 1000)
-        with connection.cursor() as cursor:
-            cursor.execute(f"INSERT INTO DetailRecords (id_pasien, id_kerja_sama, tanggal_masuk, tanggal_keluar, diagnosis, biaya) VALUES ('{id_pasien}', '{id_kerja_sama}', '{checkin_date}', '{checkout_date}', '{diagnosis}', {biaya})")
+        
+        # sum biaya from resep, teslab, and prosedur with the same id_medical_records
+        biaya = 0
+        cursor.execute(f"SELECT biaya FROM Resep WHERE id_medical_records = {PK[i]['id']}")
+        biaya += sum([row['biaya'] for row in cursor.fetchall()])
+        cursor.execute(f"SELECT biaya FROM TesLab WHERE id_medical_records = {PK[i]['id']}")
+        biaya += sum([row['biaya'] for row in cursor.fetchall()])
+        cursor.execute(f"SELECT biaya FROM Prosedur WHERE id_medical_records = {PK[i]['id']}")
+        biaya += sum([row['biaya'] for row in cursor.fetchall()])
+
+        cursor.execute(f"INSERT INTO DetailRecords (id_pasien, id_kerja_sama, tanggal_masuk, tanggal_keluar, diagnosis, biaya) VALUES ('{id_pasien}', '{id_kerja_sama}', '{checkin_date}', '{checkout_date}', '{diagnosis}', {biaya})")
+        connection.commit()

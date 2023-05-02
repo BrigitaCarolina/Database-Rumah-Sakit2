@@ -8,6 +8,7 @@ def create_resep(connection):
         dosis varchar(255) NOT NULL,
         tanggal_mulai date NOT NULL,
         tanggal_selesai date NOT NULL,
+        biaya int NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (id_medical_records) REFERENCES MedicalRecord(id)
     );
@@ -29,7 +30,8 @@ def input_data_resep(x, connection, fake):
         dosis = fake.word()
         tanggal_mulai = fake.date()
         tanggal_selesai = fake.date()
-        query = "INSERT INTO Resep VALUES (%s, %s, %s, %s, %s, %s)"
+        biaya = random.randint(1, 1000)
+        query = "INSERT INTO Resep VALUES (%s, %s, %s, %s, %s, %s, %s)"
         with connection.cursor() as cursor:
-            cursor.execute(query, (id, id_medical_records, nama_pengobatan, dosis, tanggal_mulai, tanggal_selesai))
+            cursor.execute(query, (id, id_medical_records, nama_pengobatan, dosis, tanggal_mulai, tanggal_selesai, biaya))
         connection.commit()
