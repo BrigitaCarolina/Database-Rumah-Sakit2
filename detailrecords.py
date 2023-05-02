@@ -39,11 +39,13 @@ def input_data_detail_records(connection, fake):
         
         # sum biaya from resep, teslab, and prosedur with the same id_medical_records
         biaya = 0
-        cursor.execute(f"SELECT biaya FROM Resep WHERE id_medical_records = {PK[i]['id']}")
+        cursor.execute(f"SELECT id from medicalrecord where id_pasien = {id_pasien} and id_kerja_sama = {id_kerja_sama}")
+        id_medical_records = cursor.fetchone()['id']
+        cursor.execute(f"SELECT biaya FROM Resep WHERE id_medical_records = {id_medical_records}")
         biaya += sum([row['biaya'] for row in cursor.fetchall()])
-        cursor.execute(f"SELECT biaya FROM TesLab WHERE id_medical_records = {PK[i]['id']}")
+        cursor.execute(f"SELECT biaya FROM TesLab WHERE id_medical_records = {id_medical_records}")
         biaya += sum([row['biaya'] for row in cursor.fetchall()])
-        cursor.execute(f"SELECT biaya FROM Prosedur WHERE id_medical_records = {PK[i]['id']}")
+        cursor.execute(f"SELECT biaya FROM Prosedur WHERE id_medical_records = {id_medical_records}")
         biaya += sum([row['biaya'] for row in cursor.fetchall()])
 
         cursor.execute(f"INSERT INTO DetailRecords (id_pasien, id_kerja_sama, tanggal_masuk, tanggal_keluar, diagnosis, biaya) VALUES ('{id_pasien}', '{id_kerja_sama}', '{checkin_date}', '{checkout_date}', '{diagnosis}', {biaya})")
